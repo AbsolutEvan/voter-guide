@@ -1,685 +1,703 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Colorado 2024 Voter Guide</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Base Styles */
-        body {
-            background-color: white;
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        .container {
-            max-width: 992px !important;
-            background-color: white;
-            padding: 2rem;
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            color: #4a5568;
+            background: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0;
         }
 
         /* Typography */
-        .lead {
-            font-size: 1.2rem;
-            color: #4a5568;
+        h1, h2, h3, h4, h5, h6 {
+            color: #1a202c;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
         p {
-            color: #4a5568;
+            margin-bottom: 1rem;
+        }
+
+        .lead {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
         }
 
         /* Links */
         a {
             color: #2563eb;
             text-decoration: none;
-            transition: color 0.2s ease;
         }
 
         a:hover {
             color: #1d4ed8;
-            text-decoration: none;
         }
 
-        /* Accordion Styling */
+        /* Container */
+        .voter-guide {
+            width: 100%;
+            max-width: 100%;
+            padding: 1rem;
+        }
+
+        /* Introduction section */
+        .intro-section {
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        .text-end {
+            text-align: right;
+        }
+
+        .author-info {
+            text-align: right;
+            margin-top: 2rem;
+            color: #666;
+        }
+        .footer-content {
+            padding: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                padding: 2rem;
+            }
+        }
+        /* Accordion styles */
         .accordion-item {
-            border: none;
             margin-bottom: 1rem;
+            width: 100%;
         }
 
         .accordion-button {
-            background-color: #f8fafc;
+            width: 100%;
+            padding: 1rem;
+            background: #f8fafc;
             border: 1px solid #e2e8f0;
-            border-radius: 0.5rem !important;
-            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            text-align: left;
             font-weight: 500;
             color: #1f2937;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .accordion-button:not(.collapsed) {
-            background-color: #f1f5f9;
-            color: #1f2937;
-            box-shadow: none;
+        .accordion-button::after {
+            content: '+';
+            font-size: 1.25rem;
+            font-weight: bold;
         }
 
-        .accordion-button:focus {
-            box-shadow: none;
-            border-color: #e2e8f0;
+        .accordion-button[aria-expanded="true"]::after {
+            content: '−';
         }
 
-        .accordion-body {
-            padding: 1.5rem;
+        .accordion-content {
+            display: none;
+            padding: 1rem;
             border: 1px solid #e2e8f0;
             border-top: none;
+            margin-top: -1px;
             border-bottom-left-radius: 0.5rem;
             border-bottom-right-radius: 0.5rem;
         }
 
-        /* List Groups */
+        .accordion-content.show {
+            display: block;
+        }
+
+        /* List styles */
         .list-group {
-            border-radius: 0.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
         .list-group-item {
+            padding: 1rem;
             border: 1px solid #e2e8f0;
-            padding: 1rem 1.5rem;
-            transition: background-color 0.2s ease;
+            margin-bottom: -1px;
         }
 
-        .list-group-item:hover {
-            background-color: #f8fafc;
+        .list-group-item:first-child {
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
         }
 
-        /* Cards */
-        .card {
-            border: none;
-            background-color: transparent;
+        .list-group-item:last-child {
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            margin-bottom: 0;
         }
 
-        .card-body {
-            padding: 1.5rem 0;
+        a.list-group-item {
+            display: block;
+            color: inherit;
+            text-decoration: none;
         }
 
-        /* Section Headers */
+        a.list-group-item:hover {
+            background: #f8fafc;
+        }
+
+        /* Utility classes */
+        .d-flex {
+            display: flex;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .mt-4 { margin-top: 1.5rem; }
+        .mt-5 { margin-top: 3rem; }
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 1rem; }
+        .mb-4 { margin-bottom: 1.5rem; }
+        .pb-2 { padding-bottom: 0.5rem; }
+        
+        .fw-bold { font-weight: 700; }
+        .small { font-size: 0.875rem; }
+        .text-muted { color: #6b7280; }
+        .fst-italic { font-style: italic; }
+
         .jurisdiction-header {
-            background-color: #f8fafc;
-            padding: 1rem 1.5rem;
+            background: #f8fafc;
+            padding: 1rem;
             margin: 1.5rem 0 1rem;
             border-radius: 0.5rem;
-            color: #1f2937;
             font-weight: 500;
         }
 
-        /* Footer */
-        .border-bottom {
-            border-bottom: 1px solid #e2e8f0 !important;
+        /* Grid for legislative races */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
         }
 
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
             }
+            
+            .voter-guide {
+                padding: 2rem;
+            }
+        }
 
-            .accordion-button {
-                padding: 0.75rem 1rem;
-            }
-
-            .accordion-body {
-                padding: 1rem;
-            }
-
-            .list-group-item {
-                padding: 0.75rem 1rem;
-            }
+        .border-bottom {
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
         }
     </style>
 </head>
 <body>
-    <div class="container py-5">
+    <div class="voter-guide">
         <!-- Introduction Section -->
-        <div class="row justify-content-center mb-5">
-            <div class="mt-5 pt-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-8 mx-auto">
-                                <p class="lead">A recent Colorado Politics article noted how Americans worry about the country's future, driven, in part, by narratives that describe this year's presidential elections in apocalyptic terms.</p>
-                            
-                                <p>Such framing inevitably misses the fact that politics, at its core, is local. Yes, federal policy shapes the contours of the country, often with global ramifications. But what often truly matters is the action of local government officials and the laws passed at the ballot box.</p>
-                            
-                                <p>Local policy directly affects people's wallets and livelihood. Notably, local officials decide how and where to allocate taxpayer dollars. If their decision is sound, the benefits that accrue for communities are real and often exponential.</p>
-                            
-                                <p>We hope that this voter guide will help you sort through this year's electoral contests.</p>
-                            
-                                <div class="text-end mt-4">
-                                    <p class="mb-1 fw-bold">— Luige Del Puerto</p>
-                                    <p class="small text-muted mb-1">Managing Editor</p>
-                                    <p class="small text-muted mb-1">
-                                        <a href="mailto:luige.delpuerto@coloradopolitics.com">
-                                            luige.delpuerto@coloradopolitics.com
-                                        </a>
-                                    </p>
-                                    <p class="small text-muted mb-1">
-                                        <a href="https://x.com/ldelpuerto" target="_blank" rel="noopener">
-                                            @ldelpuerto
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="intro-section">
+            <p class="lead">A recent Colorado Politics article noted how Americans worry about the country's future, driven, in part, by narratives that describe this year's presidential elections in apocalyptic terms.</p>
+            
+            <p>Such framing inevitably misses the fact that politics, at its core, is local. Yes, federal policy shapes the contours of the country, often with global ramifications. But what often truly matters is the action of local government officials and the laws passed at the ballot box.</p>
+            
+            <p>Local policy directly affects people's wallets and livelihood. Notably, local officials decide how and where to allocate taxpayer dollars. If their decision is sound, the benefits that accrue for communities are real and often exponential.</p>
+            
+            <p>We hope that this voter guide will help you sort through this year's electoral contests.</p>
+            
+            <div class="text-end mt-4">
+                <p class="fw-bold mb-1">— Luige Del Puerto</p>
+                <p class="small text-muted mb-1">Managing Editor</p>
+                <p class="small text-muted mb-1">
+                    <a href="mailto:luige.delpuerto@coloradopolitics.com">luige.delpuerto@coloradopolitics.com</a>
+                </p>
+                <p class="small text-muted mb-1">
+                    <a href="https://x.com/ldelpuerto" target="_blank" rel="noopener">@ldelpuerto</a>
+                </p>
             </div>
         </div>
 
         <!-- Main Content -->
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="accordion" id="voterGuideAccordion">
-                    <!-- Key Dates Section -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#keyDates">
-                                Key Dates to Remember
-                            </button>
-                        </h2>
-                        <div id="keyDates" class="accordion-collapse collapse show" data-bs-parent="#voterGuideAccordion">
-                            <div class="accordion-body">
-                                <div class="list-group">
-                                    <div class="list-group-item">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h6 class="mb-1">October 4, 2024</h6>
-                                        </div>
-                                        <p class="mb-1">Counties begin issuing mail ballots to voters who request one in person at the clerk's office</p>
-                                    </div>
-                                    
-                                    <div class="list-group-item">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h6 class="mb-1">October 11, 2024</h6>
-                                        </div>
-                                        <p class="mb-1">First day that ballots are mailed to voters</p>
-                                    </div>
-                                    
-                                    <div class="list-group-item">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h6 class="mb-1">October 21, 2024</h6>
-                                        </div>
-                                        <p class="mb-1">The minimum number of required voting service and polling centers open</p>
-                                    </div>
-                                    
-                                    <div class="list-group-item">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h6 class="mb-1">October 28, 2024</h6>
-                                        </div>
-                                        <p class="mb-1">Last day for individuals to submit a voter registration application and get a ballot in the mail</p>
-                                    </div>
-                                    
-                                    <div class="list-group-item">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h6 class="mb-1">November 5, 2024</h6>
-                                        </div>
-                                        <p class="mb-1">Election Day — polls close at 7 p.m.</p>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="accordion">
+            <!-- Key Dates Section -->
+            <div class="accordion-item">
+                <button class="accordion-button" aria-expanded="true" aria-controls="keyDates">
+                    Key Dates to Remember
+                </button>
+                <div id="keyDates" class="accordion-content show">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <h6 class="mb-1">October 4, 2024</h6>
+                            <p class="mb-1">Counties begin issuing mail ballots to voters who request one in person at the clerk's office</p>
                         </div>
-                    </div>
-
-                    <!-- Congressional Races Section -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#congressionalRaces">
-                                Congressional Elections
-                            </button>
-                        </h2>
-                        <div id="congressionalRaces" class="accordion-collapse collapse" data-bs-parent="#voterGuideAccordion">
-                            <div class="accordion-body">
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html">
-                                                Overview: All Colorado Congressional Races →
-                                            </a>
-                                        </h5>
-                                    </div>
-                                </div>
-                                
-                                <div class="list-group">
-                                    <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd1" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>CD1:</strong>
-                                            <span>Valdamar Archuleta (R) vs Diana DeGette (D)</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd2" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>CD2:</strong>
-                                            <span>Marshall Dawson (R) vs Joe Neguse (D)</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd3" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>CD3:</strong>
-                                            <span>Jeff Hurd (R) vs Adam Frisch (D)</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd4" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>CD4:</strong>
-                                            <span>Lauren Boebert (R) vs Trisha Calvarese (D)</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd5" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>CD5:</strong>
-                                            <span>Jeff Crank (R) vs River Gassen (D)</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd6" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>CD6:</strong>
-                                            <span>John Fabbricatore (R) vs Jason Crow (D)</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd7" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>CD7:</strong>
-                                            <span>Sergei Matvayuk (R) vs Brittany Pettersen (D)</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd8" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>CD8:</strong>
-                                            <span>Gabe Evans (R) vs Yadira Caraveo (D)</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+                        
+                        <div class="list-group-item">
+                            <h6 class="mb-1">October 11, 2024</h6>
+                            <p class="mb-1">First day that ballots are mailed to voters</p>
                         </div>
-                    </div>
-
-                    <!-- State Legislative Races Section -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#legislativeRaces">
-                                State Legislative Races
-                            </button>
-                        </h2>
-                        <div id="legislativeRaces" class="accordion-collapse collapse" data-bs-parent="#voterGuideAccordion">
-                            <div class="accordion-body">
-                                <div class="row">
-                                    <!-- State Senate -->
-                                    <div class="col-md-6">
-                                        <div class="card h-100">
-                                            <div class="card-body">
-                                                <h5 class="card-title">
-                                                    <a href="https://denvergazette.com/politics/elections/colorado-state-senate-candidates-2024-voter-guide/article_d040f475-b736-5656-80cf-84e29c0b5af3.html" 
-                                                       class="text-decoration-none">
-                                                       Colorado State Senate Candidates →
-                                                    </a>
-                                                </h5>
-                                                <p class="small text-muted mb-2">
-                                                    By Marissa Ventrelli<br>
-                                                    <a href="mailto:marissa.ventrelli@coloradopolitics.com" class="text-decoration-none">
-                                                        marissa.ventrelli@coloradopolitics.com
-                                                    </a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- State House -->
-                                    <div class="col-md-6">
-                                        <div class="card h-100">
-                                            <div class="card-body">
-                                                <h5 class="card-title">
-                                                    <a href="https://denvergazette.com/news/colorado-state-house-candidates-2024-voter-guide/article_fc374f24-a614-5aae-a17d-65d98082aa44.html" 
-                                                       class="text-decoration-none">
-                                                       Colorado State House Candidates →
-                                                    </a>
-                                                </h5>
-                                                <p class="small text-muted mb-2">
-                                                    By Marianne Goodland<br>
-                                                    <a href="mailto:marianne.goodland@coloradopolitics.com" class="text-decoration-none">
-                                                        marianne.goodland@coloradopolitics.com
-                                                    </a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        
+                        <div class="list-group-item">
+                            <h6 class="mb-1">October 21, 2024</h6>
+                            <p class="mb-1">The minimum number of required voting service and polling centers open</p>
                         </div>
-                    </div>
-
-        <!-- Statewide Ballot Measures Section -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ballotMeasures">
-                                Statewide Ballot Measures
-                            </button>
-                        </h2>
-                        <div id="ballotMeasures" class="accordion-collapse collapse" data-bs-parent="#voterGuideAccordion">
-                            <div class="accordion-body">
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html" 
-                                               class="text-decoration-none">
-                                               Overview: All Colorado Ballot Measures →
-                                            </a>
-                                        </h5>
-                                        <p class="small text-muted mb-2">
-                                            By Marianne Goodland<br>
-                                            <a href="mailto:marianne.goodland@coloradopolitics.com" class="text-decoration-none">
-                                                marianne.goodland@coloradopolitics.com
-                                            </a>
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <!-- Constitutional Amendments -->
-                                <h5 class="mt-4 mb-3">Constitutional Amendments</h5>
-                                <div class="list-group mb-4">
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Amendment G:</strong>
-                                            <span>Veteran Homestead Exemption</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Amendment H:</strong>
-                                            <span>Judicial Discipline Process</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Amendment I:</strong>
-                                            <span>Murder Charges Bail Restriction</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Amendment J:</strong>
-                                            <span>Same-Sex Marriage Recognition</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Amendment K:</strong>
-                                            <span>Election Deadlines Extension</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Amendment 79:</strong>
-                                            <span>Abortion Rights Constitutional Protection</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Amendment 80:</strong>
-                                            <span>Education Rights and School Choice</span>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <!-- Propositions -->
-                                <h5 class="mt-4 mb-3">Propositions</h5>
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Proposition JJ:</strong>
-                                            <span>Sports Betting Tax Revenue</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Proposition KK:</strong>
-                                            <span>Firearms and Ammunition Tax</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Proposition 127:</strong>
-                                            <span>Wildlife Hunting Restrictions</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Proposition 128:</strong>
-                                            <span>Violent Crime Sentencing Requirements</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Proposition 129:</strong>
-                                            <span>Veterinary Professional Associates</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Proposition 110:</strong>
-                                            <span>Peace Officer Training Fund</span>
-                                        </div>
-                                    </a>
-                                    
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Proposition 131:</strong>
-                                            <span>Open Primary System and Ranked Choice Voting</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+                        
+                        <div class="list-group-item">
+                            <h6 class="mb-1">October 28, 2024</h6>
+                            <p class="mb-1">Last day for individuals to submit a voter registration application and get a ballot in the mail</p>
                         </div>
-                    </div>
-
-        <!-- Local Ballot Measures Section -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#localMeasures">
-                                Local Ballot Measures
-                            </button>
-                        </h2>
-                        <div id="localMeasures" class="accordion-collapse collapse" data-bs-parent="#voterGuideAccordion">
-                            <div class="accordion-body">
-                                <!-- Denver -->
-                                <h5 class="jurisdiction-header">City & County of Denver</h5>
-                                <div class="list-group mb-4">
-                                    <a href="/politics/elections/2024/denver-ballot-issues-2024-november-election/article_86d2f40e-7aa1-11ef-9219-335f7cdf06bf.html" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Denver Ballot Measures →</strong>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <!-- Arapahoe County -->
-                                <h5 class="jurisdiction-header">Arapahoe County</h5>
-                                <div class="list-group mb-4">
-                                    <a href="/politics/elections/2024/arapahoe-county-ballot-issue-1a/article_6e298c0a-7b5b-11ef-aec2-bf1159d99261.html" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Issue 1A:</strong>
-                                            <span>TABOR Revenue Retention</span>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <!-- Jefferson County -->
-                                <h5 class="jurisdiction-header">Jefferson County</h5>
-                                <div class="list-group mb-4">
-                                    <a href="/politics/elections/2024/jefferson-county-amendment-1a-tabor/article_a0ee903a-79b8-11ef-8d96-e77ffc21778c.html" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Amendment 1A:</strong>
-                                            <span>TABOR Revenue Retention</span>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <!-- Douglas County -->
-                                <h5 class="jurisdiction-header">Douglas County</h5>
-                                <div class="list-group mb-4">
-                                    <a href="/politics/elections/2024/douglas-county-castle-rock-ballot-measures-2024-november-election/article_0d2edc0c-8b23-11ef-9466-4368cb664a34.html" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>School District:</strong>
-                                            <span>$490 Million Bond Measure</span>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <!-- Aurora -->
-                                <h5 class="jurisdiction-header">City of Aurora</h5>
-                                <div class="list-group mb-4">
-                                    <a href="/politics/elections/2024/aurora-pit-bull-ban-vote/article_983aebae-7b5d-11ef-91d2-db2e3afd1036.html" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>Pit Bull Ban:</strong>
-                                            <span>Retain or Repeal</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Local Candidate Elections Section -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#localRaces">
-                                Local Candidate Elections
-                            </button>
-                        </h2>
-                        <div id="localRaces" class="accordion-collapse collapse" data-bs-parent="#voterGuideAccordion">
-                            <div class="accordion-body">
-                                <!-- Jefferson County -->
-                                <h5 class="jurisdiction-header">Jefferson County</h5>
-                                <div class="list-group mb-4">
-                                    <a href="/politics/elections/2024/jefferson-county-commissioner-candidates/article_f41cea38-79bb-11ef-b12f-cbaae2bf43e3.html" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>County Commissioner Races →</strong>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <!-- Arapahoe County -->
-                                <h5 class="jurisdiction-header">Arapahoe County</h5>
-                                <div class="list-group mb-4">
-                                    <a href="/politics/elections/2024/arapahoe-county-commissioner-election-2024/article_f290dba6-7a93-11ef-8b9b-cff95c306245.html" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>County Commissioner Races →</strong>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <!-- Douglas County -->
-                                <h5 class="jurisdiction-header">Douglas County</h5>
-                                <div class="list-group mb-4">
-                                    <a href="/politics/elections/2024/douglas-county-commissioner-candidates/article_231a3746-7a9d-11ef-806d-ef8dbec1b616.html" 
-                                       class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <strong>County Commissioner Races →</strong>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+                        
+                        <div class="list-group-item">
+                            <h6 class="mb-1">November 5, 2024</h6>
+                            <p class="mb-1">Election Day — polls close at 7 p.m.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Congressional Races Section -->
+            <div class="accordion-item">
+                <button class="accordion-button" aria-expanded="false" aria-controls="congressionalRaces">
+                    Congressional Elections
+                </button>
+                <div id="congressionalRaces" class="accordion-content">
+                    <div class="mb-3">
+                        <h5>
+                            <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html">
+                                Overview: All Colorado Congressional Races →
+                            </a>
+                        </h5>
+                    </div>
+                    
+                    <div class="list-group">
+                        <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd1" 
+                           class="list-group-item">
+                            <div class="d-flex justify-between">
+                                <strong>CD1:</strong>
+                                <span>Valdamar Archuleta (R) vs Diana DeGette (D)</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd2" 
+                           class="list-group-item">
+                            <div class="d-flex justify-between">
+                                <strong>CD2:</strong>
+                                <span>Marshall Dawson (R) vs Joe Neguse (D)</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd3" 
+                           class="list-group-item">
+                            <div class="d-flex justify-between">
+                                <strong>CD3:</strong>
+                                <span>Jeff Hurd (R) vs Adam Frisch (D)</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd4" 
+                           class="list-group-item">
+                            <div class="d-flex justify-between">
+                                <strong>CD4:</strong>
+                                <span>Lauren Boebert (R) vs Trisha Calvarese (D)</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd5" 
+                           class="list-group-item">
+                            <div class="d-flex justify-between">
+                                <strong>CD5:</strong>
+                                <span>Jeff Crank (R) vs River Gassen (D)</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd6" 
+                           class="list-group-item">
+                            <div class="d-flex justify-between">
+                                <strong>CD6:</strong>
+                                <span>John Fabbricatore (R) vs Jason Crow (D)</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd7" 
+                           class="list-group-item">
+                            <div class="d-flex justify-between">
+                                <strong>CD7:</strong>
+                                <span>Sergei Matvayuk (R) vs Brittany Pettersen (D)</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://denvergazette.com/news/colorado-congressional-candidates-2024-voter-guide/article_d0ee2b3b-0764-519b-be92-5e142cf47a7c.html#cd8" 
+                           class="list-group-item">
+                            <div class="d-flex justify-between">
+                                <strong>CD8:</strong>
+                                <span>Gabe Evans (R) vs Yadira Caraveo (D)</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Footer Information -->
-        <div class="mt-5 pt-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-8 mx-auto">
-                            <!-- About the Guide -->
-                            <h5 class="border-bottom pb-2 mb-3">How we put together this guide</h5>
-                            <p class="mb-4">
-                                Our journalists reached out to the candidates, and, along with information from official sources, notably the Secretary of State's Office and Colorado's independent redistricting commissions, compiled the data to produce this guide. If there are any errors, please don't hesitate to contact editors Luige del Puerto at 
-                                <a href="mailto:luige.delpuerto@coloradopolitics.com" class="text-decoration-none">luige.delpuerto@coloradopolitics.com</a> 
-                                and Thelma Grimes at 
-                                <a href="mailto:thelma.grimes@coloradopolitics.com" class="text-decoration-none">thelma.grimes@coloradopolitics.com</a>.
-                            </p>
-
-                            <!-- Coverage Standards -->
-                            <h5 class="border-bottom pb-2 mb-3">How we cover the elections</h5>
-                            <p class="mb-4">
-                                We value objectivity and strive to ensure that our election coverage is free from bias. While we encourage staffers to exercise their rights to engage in the democratic process, they do not endorse or contribute to campaigns or candidates.
-                            </p>
-
-                            <!-- News and Opinion -->
-                            <h5 class="border-bottom pb-2 mb-3">News and opinion are separate</h5>
-                            <p class="mb-4">
-                                At Colorado Politics, we welcome diverse viewpoints on our opinion pages. Our newsroom does not take a position on issues and the viewpoints on our opinion pages do not reflect our news coverage.
-                            </p>
-
-                            <!-- Support -->
-                            <h5 class="border-bottom pb-2 mb-3">Support local journalism</h5>
-                            <p class="mb-4">
-                                It takes significant resources to cover the elections. Would you support our work by subscribing to Colorado Politics? Your subscription allows us to pursue time-consuming projects, such as this voter guide, as well as other issues that shape our state. You may 
-                                <a href="#" class="text-decoration-none">subscribe here</a>.
-                            </p>
-
-                            <!-- Author Bio -->
-                            <p class="text-muted fst-italic">
-                                An award-winning journalist, Luige serves as editor of Colorado Politics and The Denver Gazette. He previously covered politics in Arizona and wrote about national security in the Philippines, where he began his career in journalism.
+            <!-- State Legislative Races Section -->
+            <div class="accordion-item">
+                <button class="accordion-button" aria-expanded="false" aria-controls="legislativeRaces">
+                    State Legislative Races
+                </button>
+                <div id="legislativeRaces" class="accordion-content">
+                    <div class="grid">
+                        <!-- State Senate -->
+                        <div>
+                            <h5>
+                                <a href="https://denvergazette.com/politics/elections/colorado-state-senate-candidates-2024-voter-guide/article_d040f475-b736-5656-80cf-84e29c0b5af3.html">
+                                    Colorado State Senate Candidates →
+                                </a>
+                            </h5>
+                            <p class="small text-muted mb-2">
+                                By Marissa Ventrelli<br>
+                                <a href="mailto:marissa.ventrelli@coloradopolitics.com">
+                                    marissa.ventrelli@coloradopolitics.com
+                                </a>
                             </p>
                         </div>
+                    </div>    
+
+                    <br><hr><br>
+                                <!-- State House -->
+                    <div>
+                        <h5>
+                            <a href="https://denvergazette.com/news/colorado-state-house-candidates-2024-voter-guide/article_fc374f24-a614-5aae-a17d-65d98082aa44.html">
+                                Colorado State House Candidates →
+                            </a>
+                        </h5>
+                        <p class="small text-muted mb-2">
+                            By Marianne Goodland<br>
+                            <a href="mailto:marianne.goodland@coloradopolitics.com">
+                                marianne.goodland@coloradopolitics.com
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-            <!-- Resizing script to adjust iframe height dynamically -->
-    <script>
-        function sendHeight() {
-            var height = document.documentElement.scrollHeight;
-            window.parent.postMessage(height, '*');
-        }
 
-        // Call sendHeight whenever the accordion is toggled
+        <!-- Statewide Ballot Measures Section -->
+        <div class="accordion-item">
+            <button class="accordion-button" aria-expanded="false" aria-controls="ballotMeasures">
+                Statewide Ballot Measures
+            </button>
+            <div id="ballotMeasures" class="accordion-content">
+                <div class="mb-3">
+                    <h5>
+                        <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html">
+                            Overview: All Colorado Ballot Measures →
+                        </a>
+                    </h5>
+                    <p class="small text-muted mb-2">
+                        By Marianne Goodland<br>
+                        <a href="mailto:marianne.goodland@coloradopolitics.com">
+                            marianne.goodland@coloradopolitics.com
+                        </a>
+                    </p>
+                </div>
+
+                <!-- Constitutional Amendments -->
+                <h5 class="mt-4 mb-3">Constitutional Amendments</h5>
+                <div class="list-group mb-4">
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Amendment G:</strong>
+                            <span>Veteran Homestead Exemption</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Amendment H:</strong>
+                            <span>Judicial Discipline Process</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Amendment I:</strong>
+                            <span>Murder Charges Bail Restriction</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Amendment J:</strong>
+                            <span>Same-Sex Marriage Recognition</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Amendment K:</strong>
+                            <span>Election Deadlines Extension</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Amendment 79:</strong>
+                            <span>Abortion Rights Constitutional Protection</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Amendment 80:</strong>
+                            <span>Education Rights and School Choice</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Propositions -->
+                <h5 class="mt-4 mb-3">Propositions</h5>
+                <div class="list-group">
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Proposition JJ:</strong>
+                            <span>Sports Betting Tax Revenue</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Proposition KK:</strong>
+                            <span>Firearms and Ammunition Tax</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Proposition 127:</strong>
+                            <span>Wildlife Hunting Restrictions</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Proposition 128:</strong>
+                            <span>Violent Crime Sentencing Requirements</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Proposition 129:</strong>
+                            <span>Veterinary Professional Associates</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Proposition 110:</strong>
+                            <span>Peace Officer Training Fund</span>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Proposition 131:</strong>
+                            <span>Open Primary System and Ranked Choice Voting</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Local Ballot Measures Section -->
+        <div class="accordion-item">
+            <button class="accordion-button" aria-expanded="false" aria-controls="localMeasures">
+                Local Ballot Measures
+            </button>
+            <div id="localMeasures" class="accordion-content">
+                <!-- Denver -->
+                <h5 class="jurisdiction-header">City & County of Denver</h5>
+                <div class="list-group mb-4">
+                    <a href="/politics/elections/2024/denver-ballot-issues-2024-november-election/article_86d2f40e-7aa1-11ef-9219-335f7cdf06bf.html" 
+                       class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Denver Ballot Measures →</strong>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Arapahoe County -->
+                <h5 class="jurisdiction-header">Arapahoe County</h5>
+                <div class="list-group mb-4">
+                    <a href="/politics/elections/2024/arapahoe-county-ballot-issue-1a/article_6e298c0a-7b5b-11ef-aec2-bf1159d99261.html" 
+                       class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Issue 1A:</strong>
+                            <span>TABOR Revenue Retention</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Jefferson County -->
+                <h5 class="jurisdiction-header">Jefferson County</h5>
+                <div class="list-group mb-4">
+                    <a href="/politics/elections/2024/jefferson-county-amendment-1a-tabor/article_a0ee903a-79b8-11ef-8d96-e77ffc21778c.html" 
+                       class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Amendment 1A:</strong>
+                            <span>TABOR Revenue Retention</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Douglas County -->
+                <h5 class="jurisdiction-header">Douglas County</h5>
+                <div class="list-group mb-4">
+                    <a href="/politics/elections/2024/douglas-county-castle-rock-ballot-measures-2024-november-election/article_0d2edc0c-8b23-11ef-9466-4368cb664a34.html" 
+                       class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>School District:</strong>
+                            <span>$490 Million Bond Measure</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Aurora -->
+                <h5 class="jurisdiction-header">City of Aurora</h5>
+                <div class="list-group mb-4">
+                    <a href="/politics/elections/2024/aurora-pit-bull-ban-vote/article_983aebae-7b5d-11ef-91d2-db2e3afd1036.html" 
+                       class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>Pit Bull Ban:</strong>
+                            <span>Retain or Repeal</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Local Candidate Elections Section -->
+        <div class="accordion-item">
+            <button class="accordion-button" aria-expanded="false" aria-controls="localRaces">
+                Local Candidate Elections
+            </button>
+            <div id="localRaces" class="accordion-content">
+                <!-- Jefferson County -->
+                <h5 class="jurisdiction-header">Jefferson County</h5>
+                <div class="list-group mb-4">
+                    <a href="/politics/elections/2024/jefferson-county-commissioner-candidates/article_f41cea38-79bb-11ef-b12f-cbaae2bf43e3.html" 
+                       class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>County Commissioner Races →</strong>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Arapahoe County -->
+                <h5 class="jurisdiction-header">Arapahoe County</h5>
+                <div class="list-group mb-4">
+                    <a href="/politics/elections/2024/arapahoe-county-commissioner-election-2024/article_f290dba6-7a93-11ef-8b9b-cff95c306245.html" 
+                       class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>County Commissioner Races →</strong>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Douglas County -->
+                <h5 class="jurisdiction-header">Douglas County</h5>
+                <div class="list-group mb-4">
+                    <a href="/politics/elections/2024/douglas-county-commissioner-candidates/article_231a3746-7a9d-11ef-806d-ef8dbec1b616.html" 
+                       class="list-group-item">
+                        <div class="d-flex justify-between">
+                            <strong>County Commissioner Races →</strong>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Information -->
+<div class="mt-5 footer-content">
+    <div>
+        <div>
+            <div>
+                <!-- About the Guide -->
+                <h5 class="border-bottom">How we put together this guide</h5>
+                <p class="mb-4">
+                    Our journalists reached out to the candidates, and, along with information from official sources, notably the Secretary of State's Office and Colorado's independent redistricting commissions, compiled the data to produce this guide. If there are any errors, please don't hesitate to contact editors Luige del Puerto at 
+                    <a href="mailto:luige.delpuerto@coloradopolitics.com">luige.delpuerto@coloradopolitics.com</a> 
+                    and Thelma Grimes at 
+                    <a href="mailto:thelma.grimes@coloradopolitics.com">thelma.grimes@coloradopolitics.com</a>.
+                </p>
+
+                <!-- Coverage Standards -->
+                <h5 class="border-bottom">How we cover the elections</h5>
+                <p class="mb-4">
+                    We value objectivity and strive to ensure that our election coverage is free from bias. While we encourage staffers to exercise their rights to engage in the democratic process, they do not endorse or contribute to campaigns or candidates.
+                </p>
+
+                <!-- News and Opinion -->
+                <h5 class="border-bottom">News and opinion are separate</h5>
+                <p class="mb-4">
+                    At Colorado Politics, we welcome diverse viewpoints on our opinion pages. Our newsroom does not take a position on issues and the viewpoints on our opinion pages do not reflect our news coverage.
+                </p>
+
+                <!-- Support -->
+                <h5 class="border-bottom">Support local journalism</h5>
+                <p class="mb-4">
+                    It takes significant resources to cover the elections. Would you support our work by subscribing to Colorado Politics? Your subscription allows us to pursue time-consuming projects, such as this voter guide, as well as other issues that shape our state. You may 
+                    <a href="#">subscribe here</a>.
+                </p>
+
+                <!-- Author Bio -->
+                <p class="text-muted fst-italic">
+                    An award-winning journalist, Luige serves as editor of Colorado Politics and The Denver Gazette. He previously covered politics in Arizona and wrote about national security in the Philippines, where he began his career in journalism.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.accordion-button').forEach(button => {
-            button.addEventListener('click', sendHeight);
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                
+                button.setAttribute('aria-expanded', !isExpanded);
+                content.classList.toggle('show');
+                
+                if (window.parent !== window) {
+                    setTimeout(() => {
+                        const height = document.documentElement.scrollHeight;
+                        window.parent.postMessage(height, '*');
+                    }, 0);
+                }
+            });
         });
 
-        // Initial height adjustment
-        window.addEventListener('load', sendHeight);
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+        if (window.parent !== window) {
+            const height = document.documentElement.scrollHeight;
+            window.parent.postMessage(height, '*');
+        }
+    });
+</script>
