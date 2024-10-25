@@ -6,6 +6,7 @@
     <title>Colorado 2024 Voter Guide</title>
     <style>
         /* Reset and base styles */
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
@@ -70,15 +71,20 @@
             margin-top: 2rem;
             color: #666;
         }
+
+        /* Footer content */
         .footer-content {
             padding: 1rem;
         }
 
-        @media (min-width: 768px) {
-            .footer-content {
-                padding: 2rem;
-            }
+        .footer-content h5 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
         }
+
         /* Accordion styles */
         .accordion-item {
             margin-bottom: 1rem;
@@ -87,37 +93,119 @@
 
         .accordion-button {
             width: 100%;
-            padding: 1rem;
+            padding: 1.25rem;
             background: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 0.5rem;
             text-align: left;
-            font-weight: 500;
-            color: #1f2937;
+            font-weight: 700;
+            font-size: 1.35rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s ease;
         }
 
+        /* Color coding for sections */
+        .accordion-item:nth-of-type(2) .accordion-button {
+            border-left: 8px solid #2563eb;
+            background: linear-gradient(to right, rgba(37, 99, 235, 0.05), transparent);
+            color: #1e40af;
+        }
+
+        .accordion-item:nth-of-type(2) .accordion-content {
+            border-left: 8px solid #2563eb;
+        }
+
+        .accordion-item:nth-of-type(3) .accordion-button {
+            border-left: 8px solid #7c3aed;
+            background: linear-gradient(to right, rgba(124, 58, 237, 0.05), transparent);
+            color: #5b21b6;
+        }
+
+        .accordion-item:nth-of-type(3) .accordion-content {
+            border-left: 8px solid #7c3aed;
+        }
+
+        .accordion-item:nth-of-type(4) .accordion-button {
+            border-left: 8px solid #059669;
+            background: linear-gradient(to right, rgba(5, 150, 105, 0.05), transparent);
+            color: #065f46;
+        }
+
+        .accordion-item:nth-of-type(4) .accordion-content {
+            border-left: 8px solid #059669;
+        }
+
+        .accordion-item:nth-of-type(5) .accordion-button {
+            border-left: 8px solid #dc2626;
+            background: linear-gradient(to right, rgba(220, 38, 38, 0.05), transparent);
+            color: #991b1b;
+        }
+
+        .accordion-item:nth-of-type(5) .accordion-content {
+            border-left: 8px solid #dc2626;
+        }
+
+        .accordion-item:nth-of-type(6) .accordion-button {
+            border-left: 8px solid #d97706;
+            background: linear-gradient(to right, rgba(217, 119, 6, 0.05), transparent);
+            color: #92400e;
+        }
+
+        .accordion-item:nth-of-type(6) .accordion-content {
+            border-left: 8px solid #d97706;
+        }
+
+        /* Section headers inside accordions */
+        .accordion-item:nth-of-type(2) h5 {
+            color: #2563eb;
+        }
+
+        .accordion-item:nth-of-type(3) h5 {
+            color: #7c3aed;
+        }
+
+        .accordion-item:nth-of-type(4) h5 {
+            color: #059669;
+        }
+
+        .accordion-item:nth-of-type(5) h5 {
+            color: #dc2626;
+        }
+
+        .accordion-item:nth-of-type(6) h5 {
+            color: #d97706;
+        }
+
+        /* Accordion functionality */
         .accordion-button::after {
             content: '+';
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: bold;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
         .accordion-button[aria-expanded="true"]::after {
             content: '−';
+            transform: rotate(0deg);
         }
 
         .accordion-content {
             display: none;
-            padding: 1rem;
+            padding: 1.5rem;
             border: 1px solid #e2e8f0;
             border-top: none;
             margin-top: -1px;
             border-bottom-left-radius: 0.5rem;
             border-bottom-right-radius: 0.5rem;
+            background: white;
         }
 
         .accordion-content.show {
@@ -158,28 +246,37 @@
             background: #f8fafc;
         }
 
-        /* Utility classes */
-        .d-flex {
-            display: flex;
+        /* Endorsements banner */
+        .endorsements-banner {
+            background: #3b82f6;  /* Lighter blue */
+            color: white;
+            padding: 1.5rem;  /* Slightly more padding */
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
 
-        .justify-between {
-            justify-content: space-between;
+        .endorsements-banner h4 {
+            font-size: 1.3rem;  /* Larger heading */
+            margin-bottom: 0.75rem;
         }
 
-        .mt-4 { margin-top: 1.5rem; }
-        .mt-5 { margin-top: 3rem; }
-        .mb-1 { margin-bottom: 0.25rem; }
-        .mb-2 { margin-bottom: 0.5rem; }
-        .mb-3 { margin-bottom: 1rem; }
-        .mb-4 { margin-bottom: 1.5rem; }
-        .pb-2 { padding-bottom: 0.5rem; }
-        
-        .fw-bold { font-weight: 700; }
-        .small { font-size: 0.875rem; }
-        .text-muted { color: #6b7280; }
-        .fst-italic { font-style: italic; }
+        .endorsements-banner p {
+            font-size: 1.1rem;  /* Larger paragraph text */
+        }
 
+        .endorsements-banner a {
+            color: white;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .endorsements-banner a:hover {
+            color: #dbeafe;
+        }
+
+        /* Jurisdiction header */
         .jurisdiction-header {
             background: #f8fafc;
             padding: 1rem;
@@ -188,7 +285,7 @@
             font-weight: 500;
         }
 
-        /* Grid for legislative races */
+        /* Grid system */
         .grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -203,8 +300,26 @@
             .voter-guide {
                 padding: 2rem;
             }
+            
+            .footer-content {
+                padding: 2rem;
+            }
         }
 
+        /* Utility classes */
+        .d-flex { display: flex; }
+        .justify-between { justify-content: space-between; }
+        .mt-4 { margin-top: 1.5rem; }
+        .mt-5 { margin-top: 3rem; }
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 1rem; }
+        .mb-4 { margin-bottom: 1.5rem; }
+        .pb-2 { padding-bottom: 0.5rem; }
+        .fw-bold { font-weight: 700; }
+        .small { font-size: 0.875rem; }
+        .text-muted { color: #6b7280; }
+        .fst-italic { font-style: italic; }
         .border-bottom {
             border-bottom: 1px solid #e2e8f0;
             margin-bottom: 1rem;
@@ -233,6 +348,15 @@
                     <a href="https://x.com/ldelpuerto" target="_parent" rel="noopener">@ldelpuerto</a>
                 </p>
             </div>
+        </div>
+
+        <div class="endorsements-banner">
+            <h4 class="mb-2">🗳️ View The Denver Gazette's 2024 Election Endorsements</h4>
+            <p class="mb-0">
+                <a href="https://denvergazette.com/politics/elections/2024/denver-gazette-endorsements-2024-general-election/collection_eeeda432-9246-11ef-8a57-23f3b767f627.html" target="_parent" rel="noopener">
+                    Click here to see our full endorsements for the 2024 General Election →
+                </a>
+            </p>
         </div>
 
         <!-- Main Content -->
@@ -417,51 +541,58 @@
                 </div>
 
                 <!-- Constitutional Amendments -->
-                <h5 class="mt-4 mb-3">Constitutional Amendments</h5>
+            <h5 class="mt-4 mb-3">Constitutional Amendments</h5>
                 <div class="list-group mb-4">
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#amendment-g" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Amendment G:</strong>
                             <span>Veteran Homestead Exemption</span>
                         </div>
                     </a>
                     
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#amendment-h" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Amendment H:</strong>
                             <span>Judicial Discipline Process</span>
                         </div>
                     </a>
                     
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#amendment-i" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Amendment I:</strong>
                             <span>Murder Charges Bail Restriction</span>
                         </div>
                     </a>
                     
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#amendment-j" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Amendment J:</strong>
                             <span>Same-Sex Marriage Recognition</span>
                         </div>
                     </a>
                     
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#amendment-k" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Amendment K:</strong>
                             <span>Election Deadlines Extension</span>
                         </div>
                     </a>
                     
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#amendment-79" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Amendment 79:</strong>
                             <span>Abortion Rights Constitutional Protection</span>
                         </div>
                     </a>
                     
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#amendment-80" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Amendment 80:</strong>
                             <span>Education Rights and School Choice</span>
@@ -472,49 +603,56 @@
                 <!-- Propositions -->
                 <h5 class="mt-4 mb-3">Propositions</h5>
                 <div class="list-group">
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#proposition-jj" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Proposition JJ:</strong>
                             <span>Sports Betting Tax Revenue</span>
                         </div>
                     </a>
                     
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#proposition-kk" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Proposition KK:</strong>
                             <span>Firearms and Ammunition Tax</span>
                         </div>
                     </a>
                     
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#proposition-127" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Proposition 127:</strong>
                             <span>Wildlife Hunting Restrictions</span>
                         </div>
                     </a>
                     
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#proposition-128" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Proposition 128:</strong>
                             <span>Violent Crime Sentencing Requirements</span>
                         </div>
                     </a>
                     
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#proposition-129" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Proposition 129:</strong>
                             <span>Veterinary Professional Associates</span>
                         </div>
                     </a>
                     
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#proposition-110" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Proposition 110:</strong>
                             <span>Peace Officer Training Fund</span>
                         </div>
                     </a>
                     
-                    <a href="#" class="list-group-item" target="_parent" rel="noopener">
+                    <a href="https://denvergazette.com/news/colorado-ballot-measures-2024/article_19a763c0-a5e2-508a-bb32-9b2419a29737.html#proposition-131" 
+                       class="list-group-item" target="_parent" rel="noopener">
                         <div class="d-flex justify-between">
                             <strong>Proposition 131:</strong>
                             <span>Open Primary System and Ranked Choice Voting</span>
